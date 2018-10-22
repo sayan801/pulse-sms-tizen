@@ -57,6 +57,8 @@ export default {
         window.addEventListener('resize', this.handleResize)
         this.handleResize(); // Get initial margin size
 
+        window.addEventListener('tizenhwkey', this.handleBackButton)
+
         // Setup firebase
         Util.firebaseConfig();
 
@@ -93,6 +95,7 @@ export default {
 
     beforeDestroy () { // Remove event listeners
         window.removeEventListener('resize', this.handleResize)
+        window.removeEventListener('tizenhwkey', this.handleBackButton)
 
         this.$store.state.msgbus.$off('start-app');
         this.$store.state.msgbus.$off('settings-btn');
@@ -190,6 +193,24 @@ export default {
             // Set margin
             this.margin = margin
             this.$store.state.msgbus.$emit('newMargin', margin);
+        },
+
+        /**
+         * Tizen supports a hardware back button.
+         */
+        handleBackButton (button) {
+            switch(button.keyName) {
+                case 'back':
+                    if (this.$route.name.indexOf('conversations-list') > -1) {
+                        tizen.application.getCurrentApplication().exit();
+                    } else {
+                        this.$router.push({ name: 'conversations-list'});
+                        Vue.nextTick(() => {
+                            Util.scrollToTop();
+                        });
+                    }
+                    break;
+            }
         },
 
         /**

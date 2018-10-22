@@ -121,6 +121,16 @@ export default class Util {
             (el.scrollHeight - el.offsetHeight)
     }
 
+    static scrollToTop(speed = 0) {
+        jump(0, {
+            duration: speed,
+            easing: (t, b, c, d) => { // easeInOutCubic - @jaxgeller
+                if ((t/=d/2) < 1) return c/2*t*t*t + b;
+                return c/2*((t-=2)*t*t + 2) + b;
+            }
+        });
+    }
+
     /**
      * Display snackbar
      *
@@ -159,24 +169,24 @@ export default class Util {
      */
     static materialColorChange($el, color) {
 
-        const container = document.createElement("span"); // Overflow container
-        const animator = document.createElement("span"); // Animation space
-
-        container.appendChild(animator); // Prepare and insert in dom
-        container.className = "animator";
-        $el.insertBefore(container, $el.firstChild);
-
-        animator.style.background = color; // Add background color
-        $el.className += " transition"; // Add transition class for animation
-
-        setTimeout(() => {
-            $el.style.background = color;
-            $el.style.backgroundColor = color;
-
-            $el.className = $el.className.replace(" transition", "");
-
-            $el.removeChild(container);
-        }, 1250);
+        // const container = document.createElement("span"); // Overflow container
+        // const animator = document.createElement("span"); // Animation space
+        //
+        // container.appendChild(animator); // Prepare and insert in dom
+        // container.className = "animator";
+        // $el.insertBefore(container, $el.firstChild);
+        //
+        // animator.style.background = color; // Add background color
+        // $el.className += " transition"; // Add transition class for animation
+        //
+        // setTimeout(() => {
+        //     $el.style.background = color;
+        //     $el.style.backgroundColor = color;
+        //
+        //     $el.className = $el.className.replace(" transition", "");
+        //
+        //     $el.removeChild(container);
+        // }, 1250);
     }
 
     static addEventListeners(events, listener, object=window) {
