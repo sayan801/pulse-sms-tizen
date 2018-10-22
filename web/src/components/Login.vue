@@ -4,7 +4,6 @@
             <h2 class="mdl-card__title-text">Pulse SMS</h2>
         </div>
         <div class="mdl-card__supporting-text">
-            <p v-html="$t('login.first')"></p>
             <p v-if="error" class="error">{{ $t('login.error') }}</p>
             <form>
                 <div class="mdl-textfield mdl-js-textfield">
@@ -16,15 +15,10 @@
                     <label class="mdl-textfield__label" for="password">{{ $t('login.password') }}</label>
                 </div>
             </form>
-
-            <a href="https://messenger.klinkerapps.com/forgot_password.html" target="_blank">{{ $t('login.forgotpassword') }}</a>
-            <br>
-            <a href="https://messenger.klinkerapps.com/overview/platform-ios.html" target="_blank" v-html="$t('login.iphone')"></a>
         </div>
         <div class="mdl-card__actions mdl-card--border">
             <button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" id="login" @click="doLogin">{{ $t('login.login') }}</button>
         </div>
-
 
         <transition name="loading-fade">
             <div class="loading-center" v-if="loading">
@@ -118,10 +112,9 @@ export default {
     @import "../assets/scss/_vars.scss";
 
     #login-pane {
-        position: relative;
-        width: 330px;
-        height: 100%;
-        margin: 5em auto;
+        margin: 10px auto;
+        text-align: center;
+        font-size: 20px;
     }
 
     .loading-center {
