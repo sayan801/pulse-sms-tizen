@@ -6,10 +6,12 @@ It is a JavaScript based app, adapted from the Vue.js version of Pulse, that is 
 
 ## Build Setup
 
-The app is just a web app, packaged for Tizen. It has an adapted UI for the small screen. All of your normal web development practices will apply:
+Tizen JavaScript apps are basically just websites, packed directly onto the device.
+
+So, this app is just a web app, packaged for Tizen. It has an adapted UI for the small screen. All of your normal web development practices will apply:
 
 ```
-cd web
+$ cd web
 
 # install the dependencies
 $ npm install
@@ -24,9 +26,9 @@ All debugging and work is just done using Chrome. You can make the Chrome window
 $ npm run tizen
 ```
 
-The `tizen` command will build the distribution version of the app and copy the files into the Tizen app directories. You can then open the app in tizen studio to start the emulator and view the app on the wearable emulator.
+The `tizen` command will build the distribution version of the app and copy the files into the Tizen app directories. You can then open the app in TizenStudio to start the emulator/simulator and view the app as a wearable app.
 
-I do all development for this app, through the browser, rather than through Tizen Studio.
+I do all development for this app, through the browser, rather than through Tizen Studio. I have found Tizen Studio to be pretty slow.
 
 ## Contributing
 
