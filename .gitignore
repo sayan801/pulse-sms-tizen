@@ -1,0 +1,22 @@
+.DS_Store
+node_modules/
+dist/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+yarn.lock
+tizen/static
+
+# Editor directories and files
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# Tizen project files
+.settings/
+.project
+.tproject
+.metadata/
+.CustomProfile/
