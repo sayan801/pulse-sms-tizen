@@ -264,7 +264,7 @@ export default class Api {
     }
 
     static fetchThread (conversation_id, offset = 0) {
-        const limit = 30;
+        const limit = 20;
         const constructed_url =
             Url.get('messages') + Url.getAccountParam()
                 + "&conversation_id=" + conversation_id + "&limit=" + limit

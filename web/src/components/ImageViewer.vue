@@ -5,9 +5,9 @@
                 <button id="close-button" class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect" tag="button" @click="close">
                     <i class="material-icons material-icons-white">cancel</i>
                 </button>
-                <button id="download-button" class="menu_icon add mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect" @click="download">
+                <!-- <button id="download-button" class="menu_icon add mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect" @click="download">
                     <i class="material-icons material-icons-white">save</i>
-                </button>
+                </button> -->
             </div>
 
             <div class="lightbox-overlay" @click="close()">
