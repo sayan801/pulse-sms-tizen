@@ -217,7 +217,7 @@ export default class Api {
         }
 
         let constructed_url =
-            Url.get('conversations') + index + Url.getAccountParam() + "&limit=75"
+            Url.get('conversations') + index + Url.getAccountParam() + "&limit=35"
 
         const promise = new Promise((resolve, reject) => {
             if (!SessionCache.hasConversations(index)) {
@@ -264,7 +264,7 @@ export default class Api {
     }
 
     static fetchThread (conversation_id, offset = 0) {
-        const limit = 70;
+        const limit = 30;
         const constructed_url =
             Url.get('messages') + Url.getAccountParam()
                 + "&conversation_id=" + conversation_id + "&limit=" + limit
