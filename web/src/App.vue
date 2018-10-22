@@ -1,52 +1,12 @@
 <template>
     <div id="app">
 
-        <!-- Toolbar -->
-        <div id="toolbar" :style="{ color: text_color }">
-            <div id="toolbar_inner" :style="{ marginLeft: margin + 'px'}"> <!-- Toolbar-Inner -->
-                <div id="logo" @click="toggleSidebar"> <!-- Logo/Drawer link -->
-                    <img id="logo-image" src="./assets/images/holder.gif" width="30" height="30" class="icon" :class="icon_class" />
-                </div>
-                <span class="mdl-layout-title" id="toolbar-title">{{ $store.state.title }}</span>
-                <div id="toolbar_icons" >
-                    <transition-group name="list">
-                    <button id="search-button" class="menu_icon refresh mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect" tag="button" v-if="$route.name == 'conversations-list'" key="search" @click="dispatchMenuButton('search')">
-                       <i class="material-icons">search</i>
-                    </button>
-                    <button id="add-button" class="menu_icon add mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect" tag="button" v-if="$route.path.indexOf('thread') != -1" key="add" @click="$router.push('/compose');">
-                        <i class="material-icons material-icons-white">add</i>
-                    </button>
-                    <button id="refresh-button" class="menu_icon refresh mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect" @click="dispatchMenuButton('refresh')" key="refresh">
-                        <i class="material-icons">refresh</i>
-                    </button>
-                    <button class="menu_icon android-more-button mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect" id="more-button" key="more">
-                        <i class="material-icons">more_vert</i>
-                    </button>
-                    </transition-group>
-                    <ul class="mdl-menu mdl-js-menu mdl-js-ripple-effect" for="more-button" >
-                        <li v-for="item in menu_items" class="mdl-menu__item" :id="item.name + '-btn'" @click.prevent="dispatchMenuButton(item.name)" v-mdl><a class="mdl-menu__item" :id="item.name + '-conversation'" href="#">{{ item.title }}</a></li>
-                    </ul>
-                </div>
-            </div>  <!-- End Toolbar-Inner -->
-        </div> <!-- End Toolbar-->
-
-        <!-- Content Wrapper -->
-        <div id="wrapper" :style="{ marginLeft: margin + 'px'}">
-
-            <!-- Side Menu -->
-            <div id="side-menu">
-                <sidebar v-mdl>
-                </sidebar>
-            </div> <!-- End Side Menu -->
-
-            <!-- Content Area -->
-            <div id="content">
-                <main class="mdl-layout__content">
-                    <router-view></router-view>
-                </main>
-            </div> <!-- End Content Area -->
-
-        </div> <!-- End Content Wrapper -->
+      <!-- Content Area -->
+      <div id="content">
+          <main class="mdl-layout__content">
+              <router-view></router-view>
+          </main>
+      </div> <!-- End Content Area -->
 
         <!-- Loading splash page -->
         <!-- <transition name="splash-fade">
@@ -54,8 +14,6 @@
         </transition> -->
         <Snackbar />
         <ImageViewer />
-
-        <div class="file-drag"></div>
     </div>
 </template>
 
@@ -69,9 +27,7 @@ import '@/lib/hmacsha1.js'
 
 import { Util, Crypto, Api, MediaLoader, SessionCache, ShortcutKeys, Platform } from '@/utils'
 
-import Sidebar from '@/components/Sidebar.vue'
 import Conversations from '@/components/Conversations/'
-import Splash from '@/components/Splash.vue'
 import Snackbar from '@/components/Snackbar.vue'
 import ImageViewer from '@/components/ImageViewer.vue'
 
@@ -90,18 +46,6 @@ export default {
         let accountId = this.$store.state.account_id;
         let hash = this.$store.state.hash;
         let salt = this.$store.state.salt;
-
-        addEventListener('message', function(e) {
-            if (e.origin.startsWith("chrome-extension://")) {
-                if (e.data == "requesting account id") {
-                    e.source.postMessage("account id: " + accountId, e.origin);
-                } else if (e.data == "requesting hash") {
-                    e.source.postMessage("hash: " + hash, e.origin);
-                } else if (e.data == "requesting salt") {
-                    e.source.postMessage("salt: " + salt, e.origin);
-                }
-            }
-        });
     },
 
     mounted () { // Add window event listener
@@ -142,10 +86,6 @@ export default {
         this.$store.state.msgbus.$on('help-feedback-btn', () => this.$router.push('/help_feedback'));
         this.$store.state.msgbus.$on('logout-btn', this.logout);
 
-        // Request notification permissions if setting is on.
-        if (this.$store.state.notifications)
-            Notification.requestPermission();
-
         // Set toolbar color with materialColorChange animiation
         const toolbar = this.$el.querySelector("#toolbar");
         Util.materialColorChange(toolbar, this.theme_toolbar);
@@ -159,7 +99,6 @@ export default {
         this.$store.state.msgbus.$off('logout-btn');
 
         this.mm.closeWebSocket();
-
     },
 
     data () {
@@ -227,16 +166,6 @@ export default {
         },
 
         /**
-         * Handles the sidebar button
-         * Toggles sidebar open/close or redirects to '/' based on current theme
-         */
-        toggleSidebar () {
-            if(!this.full_theme)
-                this.$store.commit('sidebar_open', !this.sidebar_open);
-            else
-                this.$router.push('/');
-        },
-        /**
          * Calculates margin size on window resize
          * effectively creating a dynamic left-side whitespace
          */
@@ -247,10 +176,8 @@ export default {
 
             // If width is less than 750, close sidebar
             if (width > 750) {
-                this.$store.commit('sidebar_open', true);
                 this.$store.commit('full_theme', true);
             } else {
-                this.$store.commit('sidebar_open', false);
                 this.$store.commit('full_theme', false);
             }
 
@@ -429,10 +356,6 @@ export default {
             }
         },
 
-        sidebar_open () { // Sidebar_open state
-            return this.$store.state.sidebar_open;
-        },
-
         full_theme () { // Full_theme state
             return this.$store.state.full_theme;
         },
@@ -511,9 +434,7 @@ export default {
 
     },
     components: {
-        Sidebar,
         Conversations,
-        Splash,
         Snackbar,
         ImageViewer
     }
@@ -543,132 +464,6 @@ export default {
         -moz-osx-font-smoothing: grayscale;
     }
 
-    .file-drag.dragging {
-        border: rgba(0,128,0,0.3) solid 1em;
-        position: fixed;
-        height: calc(100% - 2em);
-        width: calc(100% - 2em);
-        top: 0;
-        z-index: 10;
-        left: 0;
-    }
-
-    #toolbar {
-        height: 43px;
-        top: 0;
-        position: fixed;
-        z-index: 4;
-        width: 100%;
-        border-bottom: solid 1px #ca2100;
-        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
-        background-color: $bg-light;
-        border-color: #e3e3e3;
-
-    }
-
-    #toolbar_inner {
-        max-width: 950px;
-        height: 100%;
-        position: relative;
-        z-index: 6;
-        transition: ease-in-out margin-left $anim-time;
-
-        #logo {
-            float: left;
-            margin-left: 20px;
-            padding-top: 9px;
-
-            #logo-image:hover {
-                cursor: pointer;
-            }
-
-            .icon {
-                margin-top: 2px;
-                width: 25px;
-                height: 25px;
-
-                &.logo {
-                    background: url(assets/images/vector/pulse.svg) 0 0 no-repeat;
-                }
-
-                &.logo_dark {
-                    background: url(assets/images/vector/pulse-dark.svg) 0 0 no-repeat;
-                }
-
-                &.menu_toggle {
-                    background: url(assets/images/vector/menu_toggle.svg) 0 0 no-repeat;
-                }
-
-                &.menu_toggle_dark {
-                    background: url(assets/images/vector/menu_toggle-dark.svg) 0 0 no-repeat;
-                }
-            }
-
-        }
-
-        .mdl-menu__outline {
-            border-radius: 10px;
-        }
-
-        .mdl-layout-title {
-            float: left;
-            margin-left: 15px;
-            margin-top: 12px;
-        }
-
-        #toolbar-title {
-            white-space: nowrap;
-            overflow: hidden;
-            height: 48px;
-        }
-
-        @media screen and (min-width: 150px) {
-            .mdl-layout-title {
-                max-width: 200px;
-            }
-        }
-
-        @media screen and (min-width: 350px) {
-            .mdl-layout-title {
-                max-width: 160px;
-            }
-        }
-
-        @media screen and (min-width: 600px) {
-            .mdl-layout-title {
-                max-width: 420px;
-            }
-        }
-
-        @media screen and (min-width: 720px) {
-            .mdl-layout-title {
-                max-width: 520px;
-            }
-        }
-
-        @media screen and (min-width: 1025px) {
-            .mdl-layout-title {
-                max-width: 720px;
-            }
-        }
-    }
-
-
-    #toolbar_icons {
-        border: 0;
-        float: right;
-        height: 100%;
-        margin-top: 5px;
-        white-space: nowrap !important;
-
-        .mdl-menu, .mdl-menu__outline {
-            margin-top: -30px;
-            margin-left: -170px;
-            transform-origin: right top 0;
-        }
-
-    }
-
     #wrapper {
         transition: ease-in-out margin-left $anim-time;
 
@@ -676,16 +471,11 @@ export default {
 
     #content {
         transition: ease-in-out margin-left $anim-time;
-        max-width: 950px;
-        min-height: 380px;
-        margin-left: $sidebar_margin; /* TODO, should be dynamic */
+        margin-left: 0px;
+        margin-right: 0px;
+        width: 100%;
+        height: 100%;
         vertical-align: top;
-
-        @media (max-width: $mini_width) {
-            & {
-                margin-left: 0px;
-            }
-        }
     }
 
     .mdl-layout__content {
@@ -693,19 +483,11 @@ export default {
         height: 100%;
         position: relative;
 
-        @media (min-width: $mini_width) {
-            & {
-                max-width: 650px;
-            }
-        }
-
         .page-content {
             bottom: 0;
             margin: auto;
             margin-bottom: 54px;
-            margin-top: 54px;
-            padding-top: 16px;
-            padding-bottom: 16px;
+            margin-top: 12px;
             overflow: hidden;
 
             @media screen and (min-width: 720px) {
@@ -732,20 +514,6 @@ export default {
     #refresh-button.rotate {
         transition: transform .3s ease-in;
         transform: rotate(360deg);
-    }
-
-    /* splash-fade transition */
-    .splash-fade-enter-active {
-        transition-delay: 1s;
-        transition: all $anim-time ease;
-    }
-    .splash-fade-leave-active {
-        transition-delay: 1s;
-        transition: all $anim-time ease;
-    }
-    .splash-fade-enter, .splash-fade-leave-to {
-        transform: translateY(70%);
-        opacity: 0;
     }
 
     .list-enter-active, .list-leave-active {

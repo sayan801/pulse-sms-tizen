@@ -18,9 +18,9 @@
             <component v-for="conversation in conversations" :is="conversation.title ? 'ConversationItem' : 'DayLabel'" :conversation-data="conversation" :archive="isArchive" :small="small" :key="conversation.hash ? conversation.hash : conversation.label"/>
         </transition-group>
 
-        <button tag="button" class="compose mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" @click="$router.push('/compose');" :style="composeStyle" v-if="!small" v-mdl>
+        <!-- <button tag="button" class="compose mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" @click="$router.push('/compose');" :style="composeStyle" v-if="!small" v-mdl>
             <i class="material-icons md-light">add</i>
-        </button>
+        </button> -->
     </div>
 </template>
 
@@ -376,7 +376,8 @@ export default {
 
     #conversation-list {
         width: 100%;
-        margin-top: 36px !important;
+        margin-top: 0px !important;
+        margin-bottom: 12px !important;
 
         .spinner {
             margin-top: 100px;
