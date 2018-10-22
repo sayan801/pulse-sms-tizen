@@ -14,8 +14,8 @@ export default {
     @import "../../assets/scss/_vars.scss";
 
     .label {
-        margin-left: 16px;
-        font-size: 12px;
+        margin-left: 82px;
+        font-size: 14px;
         margin-top: 10px;
         margin-bottom: 10px;
         font-weight: bold;

@@ -224,6 +224,7 @@ export default {
         .entry {
             width: calc(100% - 64px);
             margin-top: -4px;
+            font-size: 17px;
         }
 
         .send {

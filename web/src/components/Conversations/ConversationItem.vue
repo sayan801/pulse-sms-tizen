@@ -195,7 +195,7 @@ export default {
 
             .conversation-title {
                 color: black;
-                font-size: 16px;
+                font-size: 18px;
                 padding: 24px 16px 0px 0px;
                 white-space: nowrap;
                 overflow: hidden;
@@ -212,7 +212,7 @@ export default {
             }
 
             .conversation-snippet {
-                font-size: 14px;
+                font-size: 16px;
                 padding: 0px 16px 24px 0px;
             }
         }
