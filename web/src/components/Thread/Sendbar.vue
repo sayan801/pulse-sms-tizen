@@ -10,11 +10,11 @@
             <img :src="media_blob" />
         </div>
         <div class="send-bar-inner" id="sendbar">
-            <input id="attach" class="mdl-button mdl-js-button mdl-button--icon attach-button" readonly tabindex="-1" @click.prevent="attachMedia"/>
+            <!-- <input id="attach" class="mdl-button mdl-js-button mdl-button--icon attach-button" readonly tabindex="-1" @click.prevent="attachMedia"/>
             <input id="emoji" class="mdl-button mdl-js-button mdl-button--icon emoji-button" readonly tabindex="-1" @click="toggleEmoji"/>
             <div id="emoji-wrapper" v-show="show_emoji" @click.self="toggleEmoji">
                     <Picker :style="emojiStyle" :set="set" :sheetSize="sheetSize" :per-line="perLine" :skins="skin" @select="insertEmoji" />
-            </div>
+            </div> -->
             <div class="entry mdl-textfield mdl-js-textfield" :class="is_dirty" v-mdl>
                 <textarea class="mdl-textfield__input disabled" type="text" id="message-entry" @keydown.shift.enter.stop @keydown.enter.prevent.stop="dispatchSend" v-model="message"></textarea>
                 <label class="mdl-textfield__label" for="message-entry">{{ $t('sendbar.type') }}</label>
@@ -32,7 +32,6 @@ import Vue from 'vue'
 import AutoGrow from '@/lib/textarea-autogrow.js'
 import emojione from 'emojione'
 import 'emoji-mart-vue/css/emoji-mart.css'
-import { Picker } from 'emoji-mart-vue'
 import { Api } from '@/utils'
 
 export default {
@@ -47,35 +46,10 @@ export default {
         this.$sendbar = document.querySelector("#message-entry");
 
         this.$store.state.msgbus.$on('hotkey-emoji', this.toggleEmoji);
-
-        document.documentElement.addEventListener('paste', function(event) {
-            var clipboardData, found;
-            found = false;
-            clipboardData = event.clipboardData;
-
-            return Array.prototype.forEach.call(clipboardData.types, function(type, i) {
-                var file, reader;
-                if (found) {
-                    return;
-                }
-
-                if (type.match(/image.*/) || clipboardData.items[i].type.match(/image.*/)) {
-                    file = clipboardData.items[i].getAsFile();
-                    reader = new FileReader();
-
-                    reader.onload = function(evt) {
-                        return Api.loadFile(file);
-                    };
-
-                    reader.readAsDataURL(file);
-                    return found = true;
-                }
-            });
-        });
     },
 
     destroy () {
-        document.documentElement.removeEventListener('paste');
+
     },
 
     data () {
@@ -144,113 +118,6 @@ export default {
 
             // Clear message
             this.message = "";
-        },
-        /**
-         * Removes media from store
-         */
-        removeMedia () {
-            if (this.$store.state.loaded_media)
-                this.$store.commit('loaded_media', null);
-        },
-
-        /**
-         * Attach media
-         * Get media from event and puts it in the store
-         * @param e - event object
-         */
-        attachMedia (e) {
-
-            // Create input to attach file
-            const input = document.createElement('input');
-            input.setAttribute("type", "file");
-
-            // Add event listener
-            input.addEventListener('change', (e) => {
-                let file;
-
-                // Get file from event
-                if (e.dataTransfer)
-                    file = e.dataTransfer.files[0]
-                else
-                    file = e.target.files[0];
-
-                // Load file into cache
-                Api.loadFile(file);
-            });
-
-            // Simulate Click to open file input menu
-            const event = document.createEvent("MouseEvents");
-            event.initMouseEvent("click", true, true, window, 1, 0, 0, 0, 0,
-                false, false, false, false, 0, null);
-
-            // Dispatch click event
-            input.dispatchEvent(event)
-        },
-
-        /**
-         * Toggle emoji menu
-         * @param toggle - toggle override (default: null)
-         */
-        toggleEmoji (toggle=null) {
-
-            // Update emoji wrapper margin
-            this.updateEmojiMargin(true);
-
-            // If no toggle given, toggle the show_emoji value
-            if(typeof toggle != "boolean")
-                return this.show_emoji = !this.show_emoji
-
-            // Otherwise set to provided toggle
-            return this.show_emoji = toggle
-
-        },
-
-        /**
-         * Updates margin of the emoji box
-         * Updates margin to match edge of the message box
-         * Note: only updates when emoji box is open
-         * @param force - force update
-         */
-        updateEmojiMargin (force=false) {
-
-            if (!this.show_emoji && !force)
-                return;
-
-            // Calculate Margin (again...)
-            const MAIN_CONTENT_SIZE = 950;
-            const width = document.documentElement.clientWidth;
-            let margin = 0;
-
-            // Handles left side offset - same alg as wrapper margin
-            if (width > MAIN_CONTENT_SIZE) {
-                margin = (width - MAIN_CONTENT_SIZE) / 2;
-            }
-
-            let sidebar = this.$store.state.full_theme ? 270 : 0;
-            this.emojiStyle.left = (sidebar + margin) + "px";
-        },
-        /**
-         * Inserts Emoji to curser location
-         * @param e emoji event
-         */
-        insertEmoji(e) {
-            // Get start/end of selection for insert location
-            const start = this.$sendbar.selectionStart;
-            const end =  this.$sendbar.selectionEnd;
-
-            // Overwrite selection with emoji
-            // this is a problem because emojis are often more than one character
-            // this.message = this.message.substr(0,start)
-            //     + e.native + this.message.substr(end, this.message.length)
-
-            // it is safer to just insert the emojis at the end...
-            this.message = this.message + e.native
-
-            // Set new location of selection to start of old selection
-            // Wait until next tick to ensure the new message gets rendered
-            Vue.nextTick(() =>
-                this.$sendbar.setSelectionRange(start + 1, start + 1)
-            );
         }
     },
 
@@ -275,11 +142,10 @@ export default {
     watch: {
         '$route' (to) { // Update thread on route change
             this.message = "";
-            this.removeMedia();
         }
     },
     components: {
-        Picker,
+
     }
 }
 </script>
@@ -325,91 +191,6 @@ export default {
         .mdl-progress {
             width: 100%;
         }
-
-        .preview {
-            position: relative;
-            background: #fafafa;
-            max-height: 300px;
-            overflow: hidden;
-            border-radius: 15px;
-            margin-bottom: 10px;
-            box-shadow: -0px -0px 3px rgba(0, 0, 0, .15);
-
-            .overlay {
-                background: linear-gradient(to bottom, rgba(250,250,250,0) 95%,rgba(250,250,250,1) 100%);
-                position: absolute;
-                top: 0;
-                bottom: 0;
-                height: 100%;
-                width: 100%;
-                z-index: 10;
-
-                .media-clear {
-                    position: absolute;
-                    margin: 0.3em 1em;
-                    background: rgb(33, 150, 243) none repeat scroll 0% 0%;
-                    padding: 0.3em;
-                    right: 1em;
-                    width: 24px;
-                    min-width: 24px;
-                    min-height: 24px;
-                    height: 24px;
-                }
-
-                .media-clear i {
-                    width: 24px;
-                    font-size: 18px;
-                    line-height: 24px;
-                    height: 24px;
-                }
-            }
-
-            img {
-                margin: 1em calc(24px + 16px + 8px) 1em;
-                width: calc(100% - 108px);
-            }
-        }
-
-        @media (min-width: 750px) {
-            & {
-                width: 450px;
-            }
-        }
-        @media (min-width: 800px) {
-            & {
-                width: 490px;
-            }
-        }
-        @media (min-width: 820px) {
-            & {
-                width: 505px;
-            }
-        }
-        @media (min-width: 850px) {
-            & {
-                width: 530px;
-            }
-        }
-        @media (min-width: 870px) {
-            & {
-                width: 550px;
-            }
-        }
-        @media (min-width: 890px) {
-            & {
-                width: 570px;
-            }
-        }
-        @media (min-width: 920px) {
-            & {
-                width: 600px;
-            }
-        }
-        @media (min-width:950px) {
-            & {
-                width: 630px;
-            }
-        }
     }
 
     .mdl-textfield {
@@ -441,7 +222,7 @@ export default {
         box-shadow: -0px -0px 3px rgba(0, 0, 0, .15);
 
         .entry {
-            width: calc(100% - 124px);
+            width: calc(100% - 64px);
             margin-top: -4px;
         }
 
