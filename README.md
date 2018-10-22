@@ -1,5 +1,7 @@
 # Pulse SMS - Tizen Client
 
+<div style="text-align:center"><img src="artwork/header.png" /></div>
+
 This version of Pulse SMS works on Tizen OS devices, specifically Samsung Galaxy watches.
 
 It is a JavaScript based app, adapted from the Vue.js version of Pulse, that is used on the web client: https://github.com/klinker-apps/messenger-web
