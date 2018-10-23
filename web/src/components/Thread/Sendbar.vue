@@ -181,8 +181,9 @@ export default {
 
     .send-bar {
         height: auto;
-        width: 100%;
+        width: calc(100% - 70px);
         margin: auto;
+        margin-left: 35px;
         position: fixed;
         bottom: 0%;
         clear: both;
@@ -199,7 +200,7 @@ export default {
     }
 
     .mdl-textfield__input {
-        min-height: 2em;
+        min-height: 64px;
         transition: height ease-in-out $anim-time;
         outline: none;
     }
@@ -256,7 +257,7 @@ export default {
     }
 
     #message-entry {
-        height: 24px;
+        height: 48px;
         resize: none;
     }
 

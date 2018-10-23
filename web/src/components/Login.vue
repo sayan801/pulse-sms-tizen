@@ -111,6 +111,11 @@ export default {
 <style lang="scss" scoped>
     @import "../assets/scss/_vars.scss";
 
+    .mdl-card__title-text {
+        text-align: center;
+        margin: auto;
+    }
+
     #login-pane {
         margin: 10px auto;
         text-align: center;

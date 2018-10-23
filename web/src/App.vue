@@ -473,7 +473,7 @@ export default {
         color: #202020;
         background-color: $bg-light;
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-        font-size: 18px;
+        font-size: 20px;
         padding: 0 !important;
         margin-bottom: 0 !important;
         -webkit-user-select: none;
