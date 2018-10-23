@@ -21,3 +21,4 @@ tizen/index.html
 .tproject
 .metadata/
 .CustomProfile/
+**/*.wgt
