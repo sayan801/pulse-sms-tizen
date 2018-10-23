@@ -40,6 +40,25 @@ $ tizen cli-config "profiles.path=$TIZEN_SDK/tizen-studio-data/profile/profiles.
 $ tizen package -t wgt
 ```
 
+## Setting up the Emulator
+
+Again, using the cli:
+
+```
+# download the emulator and wearable image
+$ cd $TIZEN_STUDIO/package-manager
+$ ./package-manager-cli.bin install Emulator
+$ ./package-manager-cli.bin install WEARABLE-4.0-Emulator
+
+# figure out the name of the emulator image you just installed
+$ cd $TIZEN_STUDIO/tools/emulator/bin
+$ ./em-cli list-package
+
+# create and launch the emulator image
+$ ./em-cli create -n test-vm -p wearable-4.0-circle-x86
+$ ./em-cli launch -n test-vm
+```
+
 ## Deploying the App
 
 TODO: I haven't deployed it yet.
