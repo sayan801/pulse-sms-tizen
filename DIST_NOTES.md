@@ -45,7 +45,7 @@ $ tizen package -t wgt
 Again, using the cli:
 
 ```
-# download the emulator and wearable image
+# download and install the emulator and wearable image
 $ cd $TIZEN_STUDIO/package-manager
 $ ./package-manager-cli.bin install Emulator
 $ ./package-manager-cli.bin install WEARABLE-4.0-Emulator
