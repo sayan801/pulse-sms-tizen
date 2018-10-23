@@ -29,7 +29,6 @@
 
 <script>
 import Vue from 'vue'
-import AutoGrow from '@/lib/textarea-autogrow.js'
 import emojione from 'emojione'
 import 'emoji-mart-vue/css/emoji-mart.css'
 import { Api } from '@/utils'
@@ -39,8 +38,6 @@ export default {
     props: ['threadId', 'onSend', 'loading'],
 
     mounted () {
-        let autogrow = new AutoGrow({target: document.getElementById("message-entry"), extra_line: true, content_el: document.getElementById("message-list")});
-
         window.addEventListener('resize', this.updateEmojiMargin)
         this.$wrapper = document.querySelector("#wrapper");
         this.$sendbar = document.querySelector("#message-entry");
@@ -181,9 +178,8 @@ export default {
 
     .send-bar {
         height: auto;
-        width: calc(100% - 70px);
+        width: 100%;
         margin: auto;
-        margin-left: 35px;
         position: fixed;
         bottom: 0%;
         clear: both;
@@ -215,11 +211,10 @@ export default {
         background: #fafafa;
         height: 100%;
         margin: auto;
-        padding-left: 16px;
-        padding-right: 16px;
+        padding-left: 51px;
+        padding-right: 51px;
         padding-top: 4px;
         padding-bottom: 4px;
-        border-radius: 16px 16px 0px 0px;
         box-shadow: -0px -0px 3px rgba(0, 0, 0, .15);
 
         .entry {
