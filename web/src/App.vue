@@ -58,6 +58,8 @@ export default {
         this.handleResize(); // Get initial margin size
 
         window.addEventListener('tizenhwkey', this.handleBackButton)
+        window.addEventListener('pause', this.pause)
+        window.addEventListener('resume', this.resume)
 
         // Setup firebase
         Util.firebaseConfig();
@@ -96,6 +98,8 @@ export default {
     beforeDestroy () { // Remove event listeners
         window.removeEventListener('resize', this.handleResize)
         window.removeEventListener('tizenhwkey', this.handleBackButton)
+        window.removeEventListener('pause', this.pause)
+        window.removeEventListener('resume', this.resume)
 
         this.$store.state.msgbus.$off('start-app');
         this.$store.state.msgbus.$off('settings-btn');
@@ -204,6 +208,26 @@ export default {
                     }
                     break;
             }
+        },
+
+        /**
+         * Tizen callback for the app entering the background
+         */
+        pause () {
+            // Close socket
+            this.mm.closeWebSocket();
+        },
+
+        /**
+         * Tizen callback for the app entering the foreground
+         */
+        resume () {
+            this.$store.state.msgbus.$emit("refresh-btn");
+
+            setTimeout(() => {
+                // Re-open socket
+                this.mm.openWebSocket();
+            }, 1000)
         },
 
         /**

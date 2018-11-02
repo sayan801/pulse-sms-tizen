@@ -73,6 +73,7 @@ export default class Api {
      */
     closeWebSocket() {
         this.socket.close(1000, '', { keepClosed: true });
+        this.socket = null;
     }
 
     /**
