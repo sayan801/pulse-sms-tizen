@@ -216,8 +216,8 @@ export default {
         background: #fafafa;
         height: 100%;
         margin: auto;
-        padding-left: 51px;
-        padding-right: 51px;
+        padding-left: 60px;
+        padding-right: 60px;
         padding-top: 4px;
         padding-bottom: 4px;
         box-shadow: -0px -0px 3px rgba(0, 0, 0, .15);
