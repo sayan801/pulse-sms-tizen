@@ -63,7 +63,13 @@ $ ./em-cli launch -n test-vm
 
 We will use Samsung's `$<TIZEN_STUDIO>/tools/sdb` command (similar to `adb`). Again, it is included in the CLI SDK.
 
-First, get the IP address of the watch so that we can connect to it:
+First, turn on the developer options and allow debugging:
+
+1. Go to About Watch -> Software -> Tap the "Software Version" until the developer options are enabled
+2. Go to About Watch -> Enable debugging
+3. Restart the watch
+
+Next, get the IP address of the watch so that we can connect to it:
 
 1. Connect the watch to WiFi. You will have to turn off the bluetooth connection.
 2. Go to Connections -> WiFi -> WiFi Networks -> Open the current network and scroll down to the IP address
@@ -71,7 +77,7 @@ First, get the IP address of the watch so that we can connect to it:
 Then connect to the watch and install the app package:
 
 ```
-# connect to the watch
+# connect to the watch (it took me a number of tries and watch restarts to get it to connect and prompt me to accept the certificate to debug on my machine)
 $ sdb connect 192.168.86.34:26101
 
 # verify the watch is connected
