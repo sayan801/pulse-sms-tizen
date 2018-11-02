@@ -61,7 +61,7 @@ $ ./em-cli launch -n test-vm
 
 ## Debugging to a Physical Device
 
-We will use Samsung's `sdb` command (similar to `adb`). Again, it is included in the CLI SDK.
+We will use Samsung's `$<TIZEN_STUDIO>/tools/sdb` command (similar to `adb`). Again, it is included in the CLI SDK.
 
 First, get the IP address of the watch so that we can connect to it:
 
