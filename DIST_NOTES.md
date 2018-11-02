@@ -32,10 +32,8 @@ After generating the signing cert, we apply it to a security profile. The profil
 
 ```
 $ tizen security-profiles add -n PulseProfile \
-    -a $TIZEN_SDK/tizen-studio-data/keystore/author/pulse-tizen-cert.p12 -p <cert-password> \
-    -d $TIZEN_SDK/tizen-studio-data/keystore/distributor/pulse-tizen-cert-distributor.p12 -p <cert-password> \
-    -dc $TIZEN_SDK/tizen-studio-data/keystore/distributor/pulse-tizen-cert-ca.p12 \
-    -dr $TIZEN_SDK/tizen-studio-data/keystore/distributor/pulse-tizen-cert-rootca.p12
+    -a /home/klinkerapps/SamsungCertificate/PulseSMS/author.p12 -p <cert-password> \
+    -d /home/klinkerapps/SamsungCertificate/PulseSMS/distributor.p12 -dp <cert-password>
 ```
 
 This generates the security profile on the machine, to sign the app.
