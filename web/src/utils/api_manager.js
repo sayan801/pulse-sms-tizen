@@ -25,6 +25,10 @@ export default class Api {
     openWebSocket () {
         const this_ = this;
 
+        if (this.socket != null) {
+            return;
+        }
+
         this.socket = new ReconnectingWebsocket(Url.get('websocket') + Url.getAccountParam());
 
         this.socket.addEventListener('open', () => {

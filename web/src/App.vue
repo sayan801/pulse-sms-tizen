@@ -58,8 +58,8 @@ export default {
         this.handleResize(); // Get initial margin size
 
         window.addEventListener('tizenhwkey', this.handleBackButton)
-        window.addEventListener('pause', this.pause)
-        window.addEventListener('resume', this.resume)
+        window.addEventListener('blur', this.pause)
+        window.addEventListener('focus', this.resume)
 
         // Setup firebase
         Util.firebaseConfig();
@@ -215,7 +215,9 @@ export default {
          */
         pause () {
             // Close socket
-            this.mm.closeWebSocket();
+            if (this.mm != null) {
+                this.mm.closeWebSocket();
+            }
         },
 
         /**
@@ -224,10 +226,13 @@ export default {
         resume () {
             this.$store.state.msgbus.$emit("refresh-btn");
 
-            setTimeout(() => {
-                // Re-open socket
-                this.mm.openWebSocket();
-            }, 1000)
+            if (this.mm != null) {
+                const _this = this;
+                setTimeout(() => {
+                    // Re-open socket
+                    _this.mm.openWebSocket();
+                }, 1000)
+            }
         },
 
         /**
