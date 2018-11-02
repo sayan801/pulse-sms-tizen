@@ -25,7 +25,7 @@ import { i18n } from '@/utils'
 import '@/lib/sjcl.js'
 import '@/lib/hmacsha1.js'
 
-import { Util, Crypto, Api, MediaLoader, SessionCache, ShortcutKeys, Platform } from '@/utils'
+import { Util, Crypto, Api, MediaLoader, SessionCache, Platform } from '@/utils'
 
 import Conversations from '@/components/Conversations/'
 import Snackbar from '@/components/Snackbar.vue'
@@ -110,7 +110,6 @@ export default {
             loading: this.$store.state.loading,
             mm: null,
             toolbar_color: this.$store.state.theme_global_default,
-            menu_items: [],
             hour: null,
         }
     },
@@ -126,12 +125,6 @@ export default {
         applicationStart () {
             // Setup the API (Open websocket)
             this.mm = new Api();
-
-            // Start listening for shortcut keys
-            this.shortcuts = new ShortcutKeys();
-
-            // Populate the dropdown menu
-            this.populateMenuItems();
 
             // Setup and store the medialoader (MMS)
             this.$store.commit('media_loader', new MediaLoader());
@@ -214,59 +207,6 @@ export default {
         },
 
         /**
-         * Populate Menu Items
-         * Populates drop down menu items based on page and message context
-         * Is called when routes change. Updates data() item to
-         * maintain UI reactivity.
-         */
-        populateMenuItems () {
-
-            // Static items!
-            const items = [ ]
-
-            // On thread add Delete, Blacklist, & Archive/unarchive
-            if (this.$route.name.indexOf('thread') > -1) {
-                items.unshift(
-                    { "name": "conversation-information", 'title': i18n.t('menus.convinfo')},
-                    { "name": "blacklist", 'title': i18n.t('menus.blacklist')},
-                    { 'name': "delete", 'title': i18n.t('menus.delete')},
-                    ( this.$route.path.indexOf("archived") == -1 ?
-                        { 'name': "archive", 'title': i18n.t('menus.archive')} :
-                        { 'name': "unarchive", 'title': i18n.t('menus.unarchive')}),
-                    { "name": "conversation-settings", 'title': i18n.t('menus.convsettings')}
-                );
-            } else {
-                items.unshift(
-                    { 'name': "account", 'title': i18n.t('menus.account') },
-                    { 'name': "help-feedback", 'title': i18n.t('menus.help') },
-                    { 'name': "settings", 'title': i18n.t('menus.settings')},
-                    { 'name': "logout", 'title': i18n.t('menus.logout')}
-                )
-            }
-
-            return this.menu_items = items;
-        },
-
-        /**
-         * handles menu button click event.
-         * Dispatches an event with "name-btn" title.
-         * @param name - button name
-         */
-        dispatchMenuButton (name) {
-            // Dispatch button event to message bus
-            this.$store.state.msgbus.$emit(name + "-btn");
-
-            if (name != "refresh")
-                return;
-
-            const btn = this.$el.querySelector("#refresh-button");
-            btn.className += " rotate";
-            setTimeout(() => {
-                btn.className = btn.className.replace(" rotate", "");
-            }, 250);
-        },
-
-        /**
          * Updates theme (toolbar color)
          * When toolbar theme is enabled
          * @param color - rgb/hex color string.
@@ -298,6 +238,7 @@ export default {
 
             // Clear local storage (browser)
             window.localStorage.clear();
+
             // Close socket
             this.mm.closeWebSocket();
 
@@ -430,9 +371,6 @@ export default {
         }
     },
     watch: {
-        '$route' (to, from) { // To update dropdown menu
-            this.populateMenuItems();
-        },
         '$store.state.colors_default' (to) { // Handle theme changes
             this.updateTheme(to);
         },

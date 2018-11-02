@@ -4,18 +4,9 @@ import VueRouter from 'vue-router'
 import store from '@/store/'
 
 import Login from '@/components/Login.vue'
-import Settings from '@/components/Settings.vue'
-import Experiments from '@/components/Experiments.vue'
-import ConversationSettings from '@/components/Thread/Settings.vue'
-import Passcode from '@/components/Passcode.vue'
-import HelpFeedback from '@/components/HelpFeedback.vue'
 import Thread from '@/components/Thread/'
 import Compose from '@/components/Compose/'
 import Conversations from '@/components/Conversations/'
-import Folders from '@/components/Folders/'
-import { Blacklists, CreateBlacklist } from '@/components/Blacklists/'
-import { ScheduledMessages, CreateScheduledMessage, EditScheduledMessage } from '@/components/ScheduledMessages/'
-import { Account, Drafts, Devices, Contacts, Templates, AutoReplies, AccountFolders } from '@/components/Account/'
 
 Vue.use(VueRouter)
 
@@ -67,98 +58,6 @@ let router = new VueRouter({
             path: '/login',
             name: 'login',
             component: Login,
-        },
-        {
-            path: '/settings',
-            name: 'settings',
-            component: Settings,
-        },
-        {
-            path: '/experiments',
-            name: 'experiments',
-            component: Experiments,
-        },
-        {
-            path: '/thread/:conversation_id/settings',
-            name: 'conversation-settings',
-            component: ConversationSettings,
-            props: true
-        },
-        {
-            path: '/folders',
-            name: 'folders',
-            component: Folders,
-        },
-        {
-            path: '/blacklists',
-            name: 'blacklists',
-            component: Blacklists,
-        },
-        {
-            path: '/blacklists/new',
-            name: 'create-blacklist',
-            component: CreateBlacklist,
-        },
-        {
-            path: '/passcode',
-            name: 'passcode',
-            component: Passcode,
-        },
-        {
-            path: '/scheduled',
-            name: 'scheduled-messages',
-            component: ScheduledMessages
-        },
-        {
-            path: '/scheduled/new',
-            name: 'create-scheduled-message',
-            component: CreateScheduledMessage
-        },
-        {
-            path: '/scheduled/edit/:message_id',
-            name: 'edit-scheduled-message',
-            component: EditScheduledMessage,
-            props: true
-        },
-        {
-            path: '/help_feedback',
-            name: 'help-feedback',
-            component: HelpFeedback,
-        },
-        {
-            path: '/account',
-            name: 'account',
-            component: Account,
-        },
-        {
-            path: '/account/devices',
-            name: 'devices',
-            component: Devices,
-        },
-        {
-            path: '/account/drafts',
-            name: 'drafts',
-            component: Drafts,
-        },
-        {
-            path: '/account/contacts',
-            name: 'contacts',
-            component: Contacts,
-        },
-        {
-            path: '/account/templates',
-            name: 'templates',
-            component: Templates,
-        },
-        {
-            path: '/account/autoreply',
-            name: 'auto-replies',
-            component: AutoReplies,
-        },
-        {
-            path: '/account/folders',
-            name: 'account-folders',
-            component: AccountFolders,
         },
     ],
 })
