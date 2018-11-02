@@ -196,9 +196,14 @@ export default {
     }
 
     .mdl-textfield__input {
-        min-height: 64px;
+        min-height: 48px;
+        text-align: right;
         transition: height ease-in-out $anim-time;
         outline: none;
+    }
+
+    .mdl-textfield__label {
+        text-align: right;
     }
 
     .mdl-textfield__label:after {
