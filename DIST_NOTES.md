@@ -42,7 +42,7 @@ $ tizen package -t wgt
 
 ## Setting up the Emulator
 
-Again, using the cli:
+Again, using the CLI:
 
 ```
 # download and install the emulator and wearable image
@@ -57,6 +57,28 @@ $ ./em-cli list-package
 # create and launch the emulator image
 $ ./em-cli create -n test-vm -p wearable-4.0-circle-x86
 $ ./em-cli launch -n test-vm
+```
+
+## Debugging to a Physical Device
+
+We will use Samsung's `sdb` command (similar to `adb`). Again, it is included in the CLI SDK.
+
+First, get the IP address of the watch so that we can connect to it:
+
+1. Connect the watch to WiFi. You will have to turn off the bluetooth connection.
+2. Go to Connections -> WiFi -> WiFi Networks -> Open the current network and scroll down to the IP address
+
+Then connect to the watch and install the app package:
+
+```
+# connect to the watch
+$ sdb connect 192.168.86.34:26101
+
+# verify the watch is connected
+$ sdb devices
+
+# install the package
+$ sdb install pulse.wgt
 ```
 
 ## Deploying the App
