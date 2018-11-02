@@ -99,6 +99,15 @@ $ sdb devices
 $ sdb install pulse.wgt
 ```
 
+Some notes on debugging to the real devices, because it wasn't smooth:
+
+* To connect to the device, you have to be on WiFi and turn off Bluetooth. 
+  * This would be fine, except that network functionality within the apps only seemed to work over Bluetooth. 
+  * So, I was constantly switching between Bluetooth and WiFi. Every time that I did switch, I had to reconfigure the WiFi, because it wouldn't connect
+* To get the watch to connect through `sdb`, I was constantly having to restart it. It seemed like it would only connect after a cold boot. 
+  * I also had to run the `sdb connect` command multiple times, every time. 
+  * Even after I had authorized the certificate for my computer to debug to the device, it continued telling me that I needed to authorize it, which was just a faulty error message.
+
 ## Deploying the App
 
 TODO: I haven't deployed it yet.
