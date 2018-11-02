@@ -16,7 +16,7 @@ export default {
     .label {
         margin: auto;
         text-align: center;
-        font-size: 16px;
+        font-size: 18px;
         margin-top: 10px;
         margin-bottom: 10px;
         font-weight: bold;

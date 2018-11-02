@@ -113,7 +113,7 @@ export default {
 
     .mdl-textfield__input, .mdl-textfield__label {
         text-align: center;
-        font-size: 20px;
+        font-size: 22px;
     }
 
     .mdl-card__title-text {
@@ -124,7 +124,7 @@ export default {
     #login-pane {
         margin: 10px auto;
         text-align: center;
-        font-size: 22px;
+        font-size: 24px;
     }
 
     .loading-center {

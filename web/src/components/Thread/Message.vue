@@ -420,13 +420,13 @@ export default {
         }
         .article-title {
             margin-top: 8px;
-            font-size: 15px;
+            font-size: 22px;
             font-weight: normal;
         }
 
         .article-snippet {
             margin-top: 12px;
-            font-size: 14px;
+            font-size: 20px;
             font-weight: lighter;
         }
 
