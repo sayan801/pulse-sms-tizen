@@ -11,7 +11,7 @@
                     <label class="mdl-textfield__label" for="username">{{ $t('login.email') }}</label>
                 </div>
                 <div class="mdl-textfield mdl-js-textfield">
-                    <input class="mdl-textfield__input" type="password" id="password" v-model="password" @keyup.enter="doLogin"/>
+                    <input class="mdl-textfield__input" type="text" id="password" v-model="password" @keyup.enter="doLogin"/>
                     <label class="mdl-textfield__label" for="password">{{ $t('login.password') }}</label>
                 </div>
             </form>
@@ -111,6 +111,11 @@ export default {
 <style lang="scss" scoped>
     @import "../assets/scss/_vars.scss";
 
+    .mdl-textfield__input, .mdl-textfield__label {
+        text-align: center;
+        font-size: 20px;
+    }
+
     .mdl-card__title-text {
         text-align: center;
         margin: auto;
@@ -119,7 +124,7 @@ export default {
     #login-pane {
         margin: 10px auto;
         text-align: center;
-        font-size: 20px;
+        font-size: 22px;
     }
 
     .loading-center {
