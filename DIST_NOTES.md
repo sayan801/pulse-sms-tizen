@@ -11,17 +11,31 @@ I do all of this through the CLI SDK. The IDE is terrible.
 Obviously I will need to continue to use the cert that I originally uploaded the app with, to sign for the store distribution. This is how I created it though.
 
 ```
-$ tizen certificate -a PulseSMS -p <cert-password> -c US -s Iowa -ct Ankeny -o "Klinker Apps" -n "Luke Klinker" -e luke@klinkerapps.com -f pulse-tizen-cert
+$ tizen certificate -a PulseSMS \
+    -p <cert-password> \
+    -c US \
+    -s Iowa \
+    -ct Ankeny \
+    -o "Klinker Apps" \
+    -n "Luke Klinker" \
+    -e luke@klinkerapps.com \
+    -f pulse-tizen-cert
 ```
 
-This generated a certificate in the `$TIZEN_SDK/tizen-studio-data/keysotre/author/pulse-tizen-cert.p12`.
+This generated an "author" certificate in the `$TIZEN_SDK/tizen-studio-data/keysotre/author/pulse-tizen-cert.p12`.
+
+You also need to create a "distribution" certificate, if you want to upload to the store, or even install on a device through `sdb`. I couldn't find a way to do this through the command line. I used the steps, [here](https://developer.samsung.com/galaxy-watch/develop/getting-certificates/create)
 
 #### Applying the signing cert to a security profile
 
-After generating the signing cert, we apply it to a security profile. The profile just holds the information on the cert and the password. It is local to each machine and can be regenerated, as long as the cert is the same.
+After generating the signing cert, we apply it to a security profile. The profile just holds the information on the cert and the password. It is local to each machine and can be regenerated, as long as the cert is the same. See the [reference](https://developer.tizen.org/development/tizen-studio/web-tools/cli#Issue_tizen_cert) to learn more about the required parameters.
 
 ```
-$ tizen security-profiles add -n PulseProfile -a $TIZEN_SDK/tizen-studio-data/keystore/author/pulse-tizen-cert.p12 -p <cert-password>
+$ tizen security-profiles add -n PulseProfile \
+    -a $TIZEN_SDK/tizen-studio-data/keystore/author/pulse-tizen-cert.p12 -p <cert-password> \
+    -d $TIZEN_SDK/tizen-studio-data/keystore/distributor/pulse-tizen-cert-distributor.p12 -p <cert-password> \
+    -dc $TIZEN_SDK/tizen-studio-data/keystore/distributor/pulse-tizen-cert-ca.p12 \
+    -dr $TIZEN_SDK/tizen-studio-data/keystore/distributor/pulse-tizen-cert-rootca.p12
 ```
 
 This generates the security profile on the machine, to sign the app.
