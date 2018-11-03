@@ -217,7 +217,7 @@ export default {
          * Scrolling with the crown causes a rotary event
          */
         handleRotary (event) {
-            switch(ev.detail.direction) {
+            switch(event.detail.direction) {
                 case 'CW':
                     Util.rotaryEventDown()
                     break;
