@@ -140,8 +140,16 @@ export default class Util {
     }
 
     static scrollBy(amount) {
-        let element = document.querySelector("html");
-        jump(element.scrollTop + amount, {
+        const element = document.querySelector("html");
+        let newTop = element.scrollTop + amount
+
+        if (newTop < 0) {
+            newTop = 0;
+        } else if (Util.isScrolledToBottom() && amount > 0) {
+            newTop = element.scrollTop
+        }
+        
+        jump(newTop, {
             duration: 250,
             easing: (t, b, c, d) => { // easeInOutCubic - @jaxgeller
                 if ((t/=d/2) < 1) return c/2*t*t*t + b;
