@@ -48,7 +48,7 @@ export default {
         let salt = this.$store.state.salt;
     },
 
-    mounted () { // Add window event listener\
+    mounted () { // Add window event listener
 
         this.calculateHour(); // Calculate the next hour (for day/night theme)
         this.updateBodyClass(this.theme_str, ""); // Enables global theme

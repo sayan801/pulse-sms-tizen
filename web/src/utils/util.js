@@ -132,30 +132,15 @@ export default class Util {
     }
 
     static rotaryEventDown() {
-        Util.scrollBy(40)
+        jump(40, {
+            duration: 0
+        })
     }
 
     static rotaryEventUp() {
-        Util.scrollBy(-40)
-    }
-
-    static scrollBy(amount) {
-        const element = document.querySelector("html");
-        let newTop = element.scrollTop + amount
-
-        if (newTop < 0) {
-            newTop = 0;
-        } else if (Util.isScrolledToBottom() && amount > 0) {
-            newTop = element.scrollTop
-        }
-        
-        jump(newTop, {
-            duration: 250,
-            easing: (t, b, c, d) => { // easeInOutCubic - @jaxgeller
-                if ((t/=d/2) < 1) return c/2*t*t*t + b;
-                return c/2*((t-=2)*t*t + 2) + b;
-            }
-        });
+        jump(-40, {
+            duration: 0
+        })
     }
 
     /**
