@@ -48,7 +48,7 @@ export default {
         let salt = this.$store.state.salt;
     },
 
-    mounted () { // Add window event listener
+    mounted () { // Add window event listener\
 
         this.calculateHour(); // Calculate the next hour (for day/night theme)
         this.updateBodyClass(this.theme_str, ""); // Enables global theme
@@ -57,7 +57,9 @@ export default {
         window.addEventListener('resize', this.handleResize)
         this.handleResize(); // Get initial margin size
 
+        // Tizen events
         window.addEventListener('tizenhwkey', this.handleBackButton)
+        window.addEventListener('rotarydetent', this.handleRotary)
         window.addEventListener('blur', this.pause)
         window.addEventListener('focus', this.resume)
 
@@ -98,6 +100,7 @@ export default {
     beforeDestroy () { // Remove event listeners
         window.removeEventListener('resize', this.handleResize)
         window.removeEventListener('tizenhwkey', this.handleBackButton)
+        window.removeEventListener('rotarydetent', this.handleRotary)
         window.removeEventListener('pause', this.pause)
         window.removeEventListener('resume', this.resume)
 
@@ -206,6 +209,20 @@ export default {
                             Util.scrollToTop();
                         });
                     }
+                    break;
+            }
+        },
+
+        /**
+         * Scrolling with the crown causes a rotary event
+         */
+        handleRotary (event) {
+            switch(ev.detail.direction) {
+                case 'CW':
+                    Util.rotaryEventDown()
+                    break;
+                case 'CCW':
+                    Util.rotaryEventUp()
                     break;
             }
         },
