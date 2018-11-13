@@ -281,6 +281,7 @@ export default {
 
     .date-wrapper, .sent-wrapper {
         clear: both;
+        font-size: 16px;
 
         .date-sent, .sending {
             float: right;

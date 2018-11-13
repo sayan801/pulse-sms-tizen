@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<widget xmlns:tizen="http://tizen.org/ns/widgets" xmlns="http://www.w3.org/ns/widgets" id="https://messenger.klinkerapps.com/pulse_tizen" version="1.0.1" viewmodes="maximized">
-    <tizen:application id="akpK7xCBlT.tizen" package="akpK7xCBlT" required_version="2.2.1"/>
+<widget xmlns:tizen="http://tizen.org/ns/widgets" xmlns="http://www.w3.org/ns/widgets" id="https://messenger.klinkerapps.com/pulse_tizen" version="1.0.2" viewmodes="maximized">
+    <tizen:application id="akpK7xCBlT.tizen" package="akpK7xCBlT" required_version="3.0.0"/>
     <author href="https://luke.klinker.xyz" email="luke@klinkerapps.com">Luke Klinker</author>
     <content src="index.html"/>
     <description>A Tizen version of Pulse SMS, built for wearable devices.</description>
