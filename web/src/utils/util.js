@@ -149,19 +149,19 @@ export default class Util {
      * @param message - either a string, or data object
      */
     static snackbar(message) {
-        let data = {}
-
-        if(typeof message == "string")
-            data = { message: message };
-        else
-            data = message
-
-        const snackbar = document.querySelector('.mdl-js-snackbar');
-
-        if (typeof snackbar.attributes['hidden'] != "undefined") // ad block work around
-            snackbar.attributes.removeNamedItem("hidden");
-
-        snackbar.MaterialSnackbar.showSnackbar(data);
+        // let data = {}
+        //
+        // if(typeof message == "string")
+        //     data = { message: message };
+        // else
+        //     data = message
+        //
+        // const snackbar = document.querySelector('.mdl-js-snackbar');
+        //
+        // if (typeof snackbar.attributes['hidden'] != "undefined") // ad block work around
+        //     snackbar.attributes.removeNamedItem("hidden");
+        //
+        // snackbar.MaterialSnackbar.showSnackbar(data);
 
         return snackbar;
     }
