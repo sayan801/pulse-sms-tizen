@@ -2,8 +2,8 @@ import Vue from 'vue';
 import { i18n } from '@/utils'
 import router from '@/router/';
 import store from '@/store/';
-import emojione from 'emojione';
-import * as firebase from 'firebase';
+import firebase from 'firebase/app';
+import 'firebase/storage';
 import ImageCompressor from '@xkeshi/image-compressor';
 import ReconnectingWebsocket from 'reconnecting-websocket';
 
@@ -99,13 +99,6 @@ export default class Api {
             return;
 
         const operation = json.message.operation;
-
-        // Parse any emojis
-        if (typeof json.message.content.data != "undefined")
-            json.message.content.data = emojione.unicodeToImage(
-                json.message.content.data
-            );
-
 
         if (operation == "added_message") {
             let message = json.message.content;
@@ -397,7 +390,7 @@ export default class Api {
             timestamp: timestamp,
             mime_type: mime_type,
             message_type: 2,
-            data: emojione.unicodeToImage(Util.entityEncode(data)),
+            data: Util.entityEncode(data),
             read: true,
             snippet: snippet
         }

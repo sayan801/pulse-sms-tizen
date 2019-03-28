@@ -10,11 +10,6 @@
             <img :src="media_blob" />
         </div>
         <div class="send-bar-inner" id="sendbar">
-            <!-- <input id="attach" class="mdl-button mdl-js-button mdl-button--icon attach-button" readonly tabindex="-1" @click.prevent="attachMedia"/>
-            <input id="emoji" class="mdl-button mdl-js-button mdl-button--icon emoji-button" readonly tabindex="-1" @click="toggleEmoji"/>
-            <div id="emoji-wrapper" v-show="show_emoji" @click.self="toggleEmoji">
-                    <Picker :style="emojiStyle" :set="set" :sheetSize="sheetSize" :per-line="perLine" :skins="skin" @select="insertEmoji" />
-            </div> -->
             <div class="entry mdl-textfield mdl-js-textfield" :class="is_dirty" v-mdl>
                 <textarea class="mdl-textfield__input disabled" type="text" id="message-entry" @keydown.shift.enter.stop @keydown.enter.prevent.stop="dispatchSend" v-model="message"></textarea>
                 <label class="mdl-textfield__label" for="message-entry">{{ $t('sendbar.type') }}</label>
@@ -29,8 +24,6 @@
 
 <script>
 import Vue from 'vue'
-import emojione from 'emojione'
-import 'emoji-mart-vue/css/emoji-mart.css'
 import { Api } from '@/utils'
 
 export default {
@@ -268,11 +261,6 @@ export default {
         width: 100%;
         height: 100%;
         z-index: 10;
-
-        .emoji-mart {
-            z-index: 15;
-            transition: ease-in-out left $anim-time;
-        }
     }
 
     body.dark {

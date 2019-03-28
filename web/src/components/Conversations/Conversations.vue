@@ -32,7 +32,6 @@ import { Util, Api, SessionCache, TimeUtils } from '@/utils'
 import ConversationItem from './ConversationItem.vue'
 import DayLabel from './DayLabel.vue'
 import Spinner from '@/components/Spinner.vue'
-import emojione from 'emojione'
 
 export default {
     name: 'conversations',
@@ -172,7 +171,7 @@ export default {
             }
 
             // Generate new snippet
-            let new_snippet = emojione.unicodeToImage(Util.generateSnippet(event_obj));
+            let new_snippet = Util.generateSnippet(event_obj);
 
             conv.snippet = new_snippet;
             conv.read = event_obj.read;
