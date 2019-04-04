@@ -6,6 +6,8 @@ This version of Pulse SMS works on Tizen OS devices, specifically Samsung Galaxy
 
 It is a JavaScript based app, adapted from the Vue.js version of Pulse, that is used on the web client: https://github.com/klinker-apps/messenger-web
 
+This Tizen app will work on the Galaxy Gear S3, Galaxy Watch, Galaxy Watch Active, and the Galaxy Sport Watch. Older watches cannot be supported, at this time.
+
 ## Build Setup
 
 Tizen JavaScript apps are basically just websites, packed directly onto the device.
