@@ -8,4 +8,5 @@
     <icon src="icon.png"/>
     <name>Pulse SMS</name>
     <tizen:profile name="wearable"/>
+    <tizen:privilege name="http://tizen.org/privilege/internet"/>
 </widget>
