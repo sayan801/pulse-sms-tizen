@@ -32,7 +32,7 @@ $ npm run tizen
 
 The `tizen` command will build the distribution version of the app and copy the files into the Tizen app directories. You can then open the app in TizenStudio to start the emulator/simulator and view the app as a wearable app.
 
-I do all development for this app, through the browser, rather than through Tizen Studio. I have found Tizen Studio to be pretty slow.
+I do all development for this app through the browser, rather than through Tizen Studio. I have found Tizen Studio to be pretty slow.
 
 ## Contributing
 

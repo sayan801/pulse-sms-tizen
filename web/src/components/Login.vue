@@ -1,30 +1,17 @@
 <template>
-    <div class="mdl-card mdl-shadow--6dp" id="login-pane" v-mdl>
-        <div class="mdl-card__title mdl-color--primary mdl-color-text--white">
-            <h2 class="mdl-card__title-text">Pulse SMS</h2>
-        </div>
-        <div class="mdl-card__supporting-text">
+    <div id="login-pane" v-mdl>
+        <div>
             <p v-if="error" class="error">{{ $t('login.error') }}</p>
             <form>
                 <div class="mdl-textfield mdl-js-textfield">
-                    <input class="mdl-textfield__input" type="email" id="username" v-model="username" autofocus/>
-                    <label class="mdl-textfield__label" for="username">{{ $t('login.email') }}</label>
+                    <input class="mdl-textfield__input" type="email" placeholder="Email Address" v-model="username" autofocus/>
                 </div>
                 <div class="mdl-textfield mdl-js-textfield">
-                    <input class="mdl-textfield__input" type="text" id="password" v-model="password" @keyup.enter="doLogin"/>
-                    <label class="mdl-textfield__label" for="password">{{ $t('login.password') }}</label>
+                    <input class="mdl-textfield__input" type="text" placeholder="Password" v-model="password" @keyup.enter="doLogin"/>
                 </div>
             </form>
         </div>
-        <div class="mdl-card__actions mdl-card--border">
-            <button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" id="login" @click="doLogin">{{ $t('login.login') }}</button>
-        </div>
-
-        <transition name="loading-fade">
-            <div class="loading-center" v-if="loading">
-                <spinner></spinner>
-            </div>
-        </transition>
+        <button class="mdl-button mdl-button--colored mdl-js-button" :disabled="loading" id="login" @click="doLogin">{{ $t('login.login') }}</button>
     </div>
 </template>
 
@@ -127,39 +114,7 @@ export default {
         font-size: 24px;
     }
 
-    .loading-center {
-        position: absolute;
-        margin: 57px auto;
-        background: #fff;
-
-        height: 100%;
-        width: 100%;
-
-        text-align: center;
-        vertical-align: middle;
-
-        .spinner {
-            margin: 35% auto;
-            translate: scale(2);
-        }
-    }
-
     .error {
         color: rgb(255,64,129);
     }
-
-    /* loading-fade transition */
-    .loading-fade-enter-active {
-        transition-delay: 1s;
-        transition: all $anim-time ease;
-    }
-    .loading-fade-leave-active {
-        transition-delay: 1s;
-        transition: all $anim-time ease;
-    }
-    .loading-fade-enter, .loading-fade-leave-to {
-        transform: translateY(70%);
-        opacity: 0;
-    }
-
 </style>
